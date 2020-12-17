@@ -9,6 +9,20 @@ export class Search extends Component {
     };
   }
 
+  async componentDidMount() {
+    console.log("In ComponentDidMount of Search", this.state.searchId);
+    if (this.state.searchId) {
+      let playerStat = await fetch(
+        `https://cricapi.com/api/playerStats?apikey=${this.state.apiKey}&pid=${this.state.searchId}`
+      );
+      let playerData = await playerStat.json();
+      this.setState({ searchPlayerStats: playerData }, () =>
+        console.log("After Search:", this.state.searchPlayerStats)
+      );
+      //   console.log("Data is now:", playerData);
+    }
+  }
+
   handleSearch = (e) => {
     // console.log("Typed Value is:",e.target.value)
     this.setState(
@@ -24,13 +38,10 @@ export class Search extends Component {
   handleSearchAPI = (e) => {
     console.log("Typed value to be searched is:", this.state.searchId);
     //Call The Api here
-    // let playerStat= fetch(`https://cricapi.com/api/playerStats?apikey=${this.state.apiKey}&pid=${this.state.searchId}`)
-    // if(playerStat){
-
-    //     let player= playerStat.json()
-    //     console.log("Player Stat is:",player)
-    // }
-    this.setState({ searchId: "" });
+    this.componentDidMount();
+    this.setState({ searchId: "" }, () => {
+      //   this.componentDidMount();
+    });
   };
 
   render() {
@@ -49,6 +60,19 @@ export class Search extends Component {
         >
           Search
         </button>
+        <p style={{ border: "2px solid black" }}>
+          Image:
+          <img
+            src={
+              this.state.searchPlayerStats &&
+              this.state.searchPlayerStats.imageURL
+            }
+          />
+          <br />
+          Date of Birth:
+          {this.state.searchPlayerStats && this.state.searchPlayerStats.born}<br/>
+          Show Other Details Here Now
+        </p>
         <hr />
       </div>
     );

@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <p>Live Cricket Scores </p>
       </header><br/>
-      <strong>Search Bar Here</strong><br/>
+      {/* <strong>Search Bar Here</strong><br/> */}
       <Search/>
     </div>
   );

@@ -8,6 +8,14 @@ export class Search extends Component {
     };
   }
 
+  async componentDidMount(){
+      console.log("Initial Render Check...")
+      let apikey="iCLjbEzuHZRLvYhLbxlhW5t76XC2"
+      let response= await fetch(`https://cricapi.com/api/cricket?apikey=${apikey}`)
+      let data=await response.json()
+      console.log("Data After Fetch is:",data)
+  }
+
   handleSearch = (e) => {
     // console.log("Typed Value is:",e.target.value)
     this.setState(

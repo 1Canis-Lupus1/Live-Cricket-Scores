@@ -11,8 +11,9 @@ function App() {
       </header>
       <br />
       <CurrentMatches />
-      {/* <hr /> */}
-      {/* <Search /> */}
+      <hr /><hr/>
+      <Search />
+      <hr/>
     </div>
   );
 }

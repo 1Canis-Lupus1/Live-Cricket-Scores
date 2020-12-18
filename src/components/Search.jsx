@@ -17,15 +17,10 @@ export class Search extends Component {
       );
       let playerData = await playerStat.json();
       this.setState({ searchPlayerStats: playerData }, () => {
-        console.log("After Search:", this.state.searchPlayerStats);
         if (this.state.searchPlayerStats.error === "error") {
-          this.setState({ isError: "1" }, () => {
-            console.log("Is Error", this.state.isError);
-          });
+          this.setState({ isError: "1" });
         } else {
-          this.setState({ isError: "2" }, () => {
-            console.log("Is Error", this.state.isError);
-          });
+          this.setState({ isError: "2" });
         }
       });
     }
@@ -35,9 +30,7 @@ export class Search extends Component {
     this.setState(
       {
         searchId: e.target.value,
-      },
-      () => {
-        // console.log("After Set State:", this.state.searchId);
+        isError:""
       }
     );
   };
@@ -91,7 +84,6 @@ export class Search extends Component {
             </button>
           )}
         </div>
-        {console.log("Is Error in Render:", this.state.isError)}
         {this.state.isError === "1" && (
           <>
             <div className="alert alert-danger">
@@ -113,21 +105,74 @@ export class Search extends Component {
             </div>
           </>
         )}
-        {this.state.isError === "2" && <p>No Error</p>}
-        {/* <p style={{ border: "2px solid black" }}>
-          Image:
-          <img
-            src={
-              this.state.searchPlayerStats &&
-              this.state.searchPlayerStats.imageURL
-            }
-          />
-          <br />
-          Date of Birth:
-          {this.state.searchPlayerStats && this.state.searchPlayerStats.born}<br/>
-          Show Other Details Here Now
-        </p>
-        <hr /> */}
+        {this.state.isError === "2" && (
+          <>
+            <hr />
+            <div className="text-center">
+              <img
+                src={
+                  this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.imageURL
+                }
+                style={{ margin: "5px" }}
+                className="rounded"
+                alt={this.state.searchPlayerStats.name}
+              />
+            </div>
+            <table class="table table-dark table-striped">
+              Name:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.name}
+              </tr>
+              <hr />
+              Country of Origin:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.country}
+              </tr>
+              <hr />
+              Born:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.born}
+              </tr>
+              <hr />
+              Current Age:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.currentAge}
+              </tr>
+              <hr />
+              Playing Role:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.playingRole}
+              </tr>
+              <hr />
+              Batting Style:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.battingStyle}
+              </tr>
+              <hr />
+              Bowling Style:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.bowlingStyle}
+              </tr>
+              <hr />
+              Batting Strike Rate:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.data.batting.firstClass.SR}
+              </tr>
+              <hr />
+              Bowling Economy:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.data.bowling.firstClass.Econ}
+              </tr>
+              <hr />
+              Major Teams played with:{" "}
+              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+                {this.state.searchPlayerStats.majorTeams}
+              </tr>
+              <hr />
+            </table>
+          </>
+        )}
       </div>
     );
   }

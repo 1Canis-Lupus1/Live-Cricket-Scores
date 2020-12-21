@@ -6,6 +6,7 @@ export class Search extends Component {
     this.state = {
       apiKey: "iCLjbEzuHZRLvYhLbxlhW5t76XC2",
       searchId: "",
+      searchName: "",
       isError: "",
     };
   }
@@ -16,6 +17,7 @@ export class Search extends Component {
         `https://cricapi.com/api/playerStats?apikey=${this.state.apiKey}&pid=${this.state.searchId}`
       );
       let playerData = await playerStat.json();
+      console.log("Data After Id is:",playerData)
       this.setState({ searchPlayerStats: playerData }, () => {
         if (this.state.searchPlayerStats.error === "error") {
           this.setState({ isError: "1" });
@@ -24,20 +26,44 @@ export class Search extends Component {
         }
       });
     }
+    if (this.state.searchName) {
+      let playerStat = await fetch(
+        `https://cricapi.com/api/playerFinder?apikey=${this.state.apiKey}&name=${this.state.searchName}`
+      );
+      let playerData = await playerStat.json();
+      console.log("Data After Name is:",playerData)
+      // this.setState({ searchPlayerStats: playerData }, () => {
+      //   if (this.state.searchPlayerStats.error === "error") {
+      //     this.setState({ isError: "1" });
+      //   } else {
+      //     this.setState({ isError: "2" });
+      //   }
+      // });
+    }
   }
 
   handleSearch = (e) => {
-    this.setState(
-      {
+    if (e.target.name === "id") {
+      this.setState({
         searchId: e.target.value,
-        isError:""
-      }
-    );
+        isError: "",
+      },()=>{
+        console.log("aFTER:",this.state.searchId)
+      });
+    }
+    else {
+      this.setState({
+        searchName: e.target.value,
+        isError: "",
+      },()=>{
+        console.log("After:",this.state.searchName)
+      });
+    }
   };
 
   handleSearchAPI = (e) => {
     this.componentDidMount();
-    this.setState({ searchId: "" });
+    this.setState({ searchId: "",searchName:"" });
   };
 
   render() {
@@ -55,6 +81,7 @@ export class Search extends Component {
         </label>
         <input
           type="text"
+          name="id"
           value={this.state.searchId}
           class="form-control"
           id="inputPassword2"
@@ -63,6 +90,53 @@ export class Search extends Component {
         />
         <div class="d-grid gap-2 col-6 mx-auto">
           {this.state.searchId.length === 0 ? (
+            <button
+              class="btn btn-dark"
+              type="button"
+              style={{ margin: "10px 30px" }}
+              disabled
+            >
+              Get Player Info
+            </button>
+          ) : (
+            <button
+              class="btn btn-outline-success"
+              type="button"
+              style={{ margin: "10px 30px" }}
+              onClick={(e) => {
+                this.handleSearchAPI(e);
+              }}
+            >
+              Get Player Info
+            </button>
+          )}
+        </div>
+        <br />
+        <h2
+          className="badge rounded-pill bg-warning text-dark"
+          style={{ fontSize: "20px" }}
+        >
+          OR
+        </h2>
+        <br />
+        <label
+          for="exampleFormControlInput1"
+          style={{ margin: "10px" }}
+          class="form-label alert alert-info"
+        >
+          Get Player Stats By Name
+        </label>
+        <input
+          type="text"
+          name="name"
+          value={this.state.searchName}
+          class="form-control"
+          id="inputPassword2"
+          placeholder="Enter Player Name here"
+          onChange={(e) => this.handleSearch(e)}
+        />
+        <div class="d-grid gap-2 col-6 mx-auto">
+          {this.state.searchName.length === 0 ? (
             <button
               class="btn btn-dark"
               type="button"
@@ -121,53 +195,53 @@ export class Search extends Component {
             </div>
             <table class="table table-dark table-striped">
               Name:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.name}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.name}
               </tr>
               <hr />
               Country of Origin:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.country}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.country}
               </tr>
               <hr />
               Born:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
                 {this.state.searchPlayerStats.born}
               </tr>
               <hr />
               Current Age:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.currentAge}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.currentAge}
               </tr>
               <hr />
               Playing Role:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.playingRole}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.playingRole}
               </tr>
               <hr />
               Batting Style:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.battingStyle}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.battingStyle}
               </tr>
               <hr />
               Bowling Style:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.bowlingStyle}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.bowlingStyle}
               </tr>
               <hr />
               Batting Strike Rate:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.data.batting.firstClass.SR}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.data && this.state.searchPlayerStats.data.batting && this.state.searchPlayerStats.data.batting.firstClass && this.state.searchPlayerStats.data.batting.firstClass.SR}
               </tr>
               <hr />
               Bowling Economy:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.data.bowling.firstClass.Econ}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.data && this.state.searchPlayerStats.data.bowling && this.state.searchPlayerStats.data.bowling.firstClass && this.state.searchPlayerStats.data.bowling.firstClass.Econ}
               </tr>
               <hr />
               Major Teams played with:{" "}
-              <tr style={{ margin: "10px 0px",fontSize:"20px" }}>
-                {this.state.searchPlayerStats.majorTeams}
+              <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
+                {this.state.searchPlayerStats && this.state.searchPlayerStats.majorTeams}
               </tr>
               <hr />
             </table>

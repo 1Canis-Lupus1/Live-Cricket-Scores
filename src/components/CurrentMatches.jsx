@@ -15,7 +15,7 @@ export class CurrentMatches extends Component {
       `https://cricapi.com/api/cricket?apikey=${this.state.apiKey}`
     );
     let data = await response.json();
-    this.setState({ currentMatches: data.data });
+    // this.setState({ currentMatches: data.data });
   }
 
   handleCurrentMatches = () => {

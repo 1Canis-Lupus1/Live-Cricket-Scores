@@ -2,6 +2,7 @@ import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Search } from "../src/components/Search";
 import CurrentMatches from "./components/CurrentMatches";
+import UpcomingMatches from "./components/UpcomingMatches";
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       </header>
       <br />
       <CurrentMatches />
-      <hr /><hr/>
+      <hr />
+      <UpcomingMatches/>
+        <hr/>
       <Search />
       <hr/>
     </div>

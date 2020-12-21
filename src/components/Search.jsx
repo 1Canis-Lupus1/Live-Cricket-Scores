@@ -17,8 +17,8 @@ export class Search extends Component {
         `https://cricapi.com/api/playerStats?apikey=${this.state.apiKey}&pid=${this.state.searchId}`
       );
       let playerData = await playerStat.json();
-      console.log("Data After Id is:",playerData)
       this.setState({ searchPlayerStats: playerData }, () => {
+        console.log("After Set State is:", this.state.searchPlayerStats);
         if (this.state.searchPlayerStats.error === "error") {
           this.setState({ isError: "1" });
         } else {
@@ -31,39 +31,42 @@ export class Search extends Component {
         `https://cricapi.com/api/playerFinder?apikey=${this.state.apiKey}&name=${this.state.searchName}`
       );
       let playerData = await playerStat.json();
-      console.log("Data After Name is:",playerData)
-      // this.setState({ searchPlayerStats: playerData }, () => {
-      //   if (this.state.searchPlayerStats.error === "error") {
-      //     this.setState({ isError: "1" });
-      //   } else {
-      //     this.setState({ isError: "2" });
-      //   }
-      // });
+      this.setState({ searchPlayerStatsName: playerData.data }, () => {
+        console.log(
+          "After name setting we have:",
+          this.state.searchPlayerStatsName
+        );
+      });
     }
   }
 
   handleSearch = (e) => {
     if (e.target.name === "id") {
-      this.setState({
-        searchId: e.target.value,
-        isError: "",
-      },()=>{
-        console.log("aFTER:",this.state.searchId)
-      });
-    }
-    else {
-      this.setState({
-        searchName: e.target.value,
-        isError: "",
-      },()=>{
-        console.log("After:",this.state.searchName)
-      });
+      this.setState(
+        {
+          searchId: e.target.value,
+          isError: "",
+        },
+        () => {
+          // console.log("aFTER:",this.state.searchId)
+        }
+      );
+    } else {
+      this.setState(
+        {
+          searchName: e.target.value,
+          isError: "",
+        },
+        () => {
+          // console.log("After:",this.state.searchName)
+        }
+      );
     }
   };
 
   handleSearchAPI = (e) => {
     this.componentDidMount();
-    this.setState({ searchId: "",searchName:"" });
+    this.setState({ searchId: "", searchName: "" });
   };
 
   render() {
@@ -85,7 +88,7 @@ export class Search extends Component {
           value={this.state.searchId}
           class="form-control"
           id="inputPassword2"
-          placeholder="Enter Player Id here"
+          placeholder="Enter Player Id Here"
           onChange={(e) => this.handleSearch(e)}
         />
         <div class="d-grid gap-2 col-6 mx-auto">
@@ -132,7 +135,7 @@ export class Search extends Component {
           value={this.state.searchName}
           class="form-control"
           id="inputPassword2"
-          placeholder="Enter Player Name here"
+          placeholder="Enter Player Name Here"
           onChange={(e) => this.handleSearch(e)}
         />
         <div class="d-grid gap-2 col-6 mx-auto">
@@ -158,7 +161,26 @@ export class Search extends Component {
             </button>
           )}
         </div>
-        {this.state.isError === "1" && (
+        {this.state.searchPlayerStatsName &&
+          this.state.searchPlayerStatsName.map((e) => {
+            // console.log("Entry is:",e)
+            return (
+              <>
+                <table className="table table-striped">
+                  <tr>
+                    <th>Player ID:</th>
+                    <th>Full Name:</th>
+                  </tr>
+                  <tr>
+                    <td>{e.pid}</td>
+                    <td>{e.fullName}</td>
+                  </tr>
+                </table>
+                <hr />
+              </>
+            );
+          })}
+        {this.state.searchPlayerStats && this.state.isError === "1" && (
           <>
             <div className="alert alert-danger">
               <h4 class="alert-heading" style={{ margin: "5px 40px" }}>
@@ -179,7 +201,7 @@ export class Search extends Component {
             </div>
           </>
         )}
-        {this.state.isError === "2" && (
+        {this.state.searchPlayerStats && this.state.isError === "2" && (
           <>
             <hr />
             <div className="text-center">
@@ -196,12 +218,14 @@ export class Search extends Component {
             <table class="table table-dark table-striped">
               Name:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.name}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.name}
               </tr>
               <hr />
               Country of Origin:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.country}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.country}
               </tr>
               <hr />
               Born:{" "}
@@ -211,37 +235,50 @@ export class Search extends Component {
               <hr />
               Current Age:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.currentAge}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.currentAge}
               </tr>
               <hr />
               Playing Role:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.playingRole}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.playingRole}
               </tr>
               <hr />
               Batting Style:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.battingStyle}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.battingStyle}
               </tr>
               <hr />
               Bowling Style:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.bowlingStyle}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.bowlingStyle}
               </tr>
               <hr />
               Batting Strike Rate:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.data && this.state.searchPlayerStats.data.batting && this.state.searchPlayerStats.data.batting.firstClass && this.state.searchPlayerStats.data.batting.firstClass.SR}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.data &&
+                  this.state.searchPlayerStats.data.batting &&
+                  this.state.searchPlayerStats.data.batting.firstClass &&
+                  this.state.searchPlayerStats.data.batting.firstClass.SR}
               </tr>
               <hr />
               Bowling Economy:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.data && this.state.searchPlayerStats.data.bowling && this.state.searchPlayerStats.data.bowling.firstClass && this.state.searchPlayerStats.data.bowling.firstClass.Econ}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.data &&
+                  this.state.searchPlayerStats.data.bowling &&
+                  this.state.searchPlayerStats.data.bowling.firstClass &&
+                  this.state.searchPlayerStats.data.bowling.firstClass.Econ}
               </tr>
               <hr />
               Major Teams played with:{" "}
               <tr style={{ margin: "10px 0px", fontSize: "20px" }}>
-                {this.state.searchPlayerStats && this.state.searchPlayerStats.majorTeams}
+                {this.state.searchPlayerStats &&
+                  this.state.searchPlayerStats.majorTeams}
               </tr>
               <hr />
             </table>

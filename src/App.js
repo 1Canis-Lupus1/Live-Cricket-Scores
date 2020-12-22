@@ -13,8 +13,8 @@ function App() {
       <br />
       <CurrentMatches />
       <hr />
-      <UpcomingMatches/>
-        <hr/>
+      {/* <UpcomingMatches/>
+        <hr/> */}
       <Search />
       <hr/>
     </div>

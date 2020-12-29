@@ -66,12 +66,13 @@ export class CurrentMatches extends Component {
           {this.state.currentMatches.length === 0 ? (
             <>
               <div className="alert alert-error">
-                <h4
+                <div
                   className="bg-danger"
                   style={{ color: "white", padding: "20px 20px" }}
                 >
-                  Failed To Load Current Data
-                </h4>
+                  <h4>Failed To Load Current Data</h4>
+                  <small>Check Your Internet Connection And Try Again</small>
+                </div>
                 <hr />
                 <button
                   type="button"
@@ -110,12 +111,11 @@ export class CurrentMatches extends Component {
                 </tr>
               </thead>
               {this.handleCurrentMatches()}
+              <div className="card-footer text-muted">
+                Last Updated: {Math.floor(Math.random() * 5) + 1} mins ago
+              </div>
             </div>
           )}
-        </div>
-
-        <div className="card-footer text-muted">
-          Last Updated: {Math.floor(Math.random() * 5) + 1} mins ago
         </div>
       </div>
     );

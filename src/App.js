@@ -11,9 +11,9 @@ function App() {
         <p>Live Cricket Scores </p>
       </header>
       <br />
-      <Search />
+      {/* <Search /> */}
       <hr />
-      <CurrentMatches />
+      {/* <CurrentMatches /> */}
       <hr />
       <UpcomingMatches />
       <hr />

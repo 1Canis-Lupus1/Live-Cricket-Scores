@@ -40,40 +40,42 @@ export class UpcomingMatches extends Component {
           ></div>
         )}
         {this.state.isLoading === false &&
-          this.state.displayMatches.map((each) => {
+          this.state.displayMatches.map((each, index) => {
             // console.log("Count is now:",each.indexOf)
             return (
               <ul>
                 <>
-                  <div class="list-group" style={{ margin: "20px" }}>
-                    <a
-                      href="#"
-                    //   target="_blank"
-                      class="list-group-item list-group-item-action flex-column align-items-start "
-                    >
-                      <div class="d-flex w-100 justify-content-between alert alert-info">
-                        <h5 class="mb-1">
-                          <span
-                            class="badge bg-warning"
-                            style={{ fontSize: "20px" }}
-                          >
-                            Scheduled Match Details:
+                  {index <= 9 && (
+                    <div class="list-group" style={{ margin: "20px" }}>
+                      <a
+                        href="#"
+                        //   target="_blank"
+                        class="list-group-item list-group-item-action flex-column align-items-start "
+                      >
+                        <div class="d-flex w-100 justify-content-between alert alert-info">
+                          <h5 class="mb-1">
+                            <span
+                              class="badge bg-warning"
+                              style={{ fontSize: "20px" }}
+                            >
+                              Scheduled Match Details:
+                            </span>
+                            &nbsp;<strong>{each.name}</strong>
+                          </h5>
+                        </div>
+                        <hr />
+                        <p style={{ margin: "10px" }}>
+                          <span style={{ fontSize: "20px" }}>
+                            Scheduled Date:
                           </span>
-                          &nbsp;<strong>{each.name}</strong>
-                        </h5>
-                      </div>
-                      <hr />
-                      <p style={{ margin: "10px" }}>
-                        <span style={{ fontSize: "20px" }}>
-                          Scheduled Date:
-                        </span>
-                        &nbsp;
-                        <strong>
-                          {moment(each.date).format("dddd, MMMM Do YYYY")}
-                        </strong>
-                      </p>
-                    </a>
-                  </div>
+                          &nbsp;
+                          <strong>
+                            {moment(each.date).format("dddd, MMMM Do YYYY")}
+                          </strong>
+                        </p>
+                      </a>
+                    </div>
+                  )}
                 </>
               </ul>
             );

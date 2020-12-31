@@ -132,7 +132,7 @@ export class Search extends Component {
           style={{ margin: "10px" }}
           class="form-label alert alert-info"
         >
-          Get Player Stats By Name
+          Get Player ID By Name
         </label>
         <input
           type="text"

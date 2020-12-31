@@ -19,7 +19,6 @@ export class UpcomingMatches extends Component {
       `https://cricapi.com/api/matchCalendar?apikey=${this.state.apiKey}`
     );
     let showMatches = await getMatches.json();
-    // console.log("Upcomming Matches are:",showMatches.data)
     this.setState({
       displayMatches: showMatches.data,
       isLoading: false,
@@ -41,7 +40,6 @@ export class UpcomingMatches extends Component {
         )}
         {this.state.isLoading === false &&
           this.state.displayMatches.map((each, index) => {
-            // console.log("Count is now:",each.indexOf)
             return (
               <ul>
                 <>
@@ -49,7 +47,6 @@ export class UpcomingMatches extends Component {
                     <div class="list-group" style={{ margin: "20px" }}>
                       <a
                         href="#"
-                        //   target="_blank"
                         class="list-group-item list-group-item-action flex-column align-items-start "
                       >
                         <div class="d-flex w-100 justify-content-between alert alert-info">

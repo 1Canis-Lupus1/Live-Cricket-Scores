@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Live Cricket Scores </p>
+        <b style={{ fontSize: "50px" }}>Cricket Info Hub </b>
       </header>
       <br />
       <Search />

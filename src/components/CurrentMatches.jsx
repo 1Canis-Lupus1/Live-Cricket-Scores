@@ -11,7 +11,6 @@ export class CurrentMatches extends Component {
   }
 
   async componentDidMount() {
-    // console.log("Initial Render Check...");
     this.setState({
       isLoading: true,
     });

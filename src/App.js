@@ -1,8 +1,10 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'font-awesome/css/font-awesome.min.css';
 import { Search } from "../src/components/Search";
 import CurrentMatches from "./components/CurrentMatches";
 import UpcomingMatches from "./components/UpcomingMatches";
+import Copyright from "./components/Copyright";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
       <hr />
       <UpcomingMatches />
       <hr />
+      <Copyright />
+      <hr/>
     </div>
   );
 }

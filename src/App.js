@@ -11,11 +11,11 @@ function App() {
         <p>Live Cricket Scores </p>
       </header>
       <br />
-      {/* <Search /> */}
+      <Search />
       <hr />
       <CurrentMatches />
       <hr />
-      {/* <UpcomingMatches /> */}
+      <UpcomingMatches />
       <hr />
     </div>
   );

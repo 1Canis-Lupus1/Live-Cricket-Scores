@@ -31,11 +31,14 @@ export class Search extends Component {
         `https://cricapi.com/api/playerFinder?apikey=${this.state.apiKey}&name=${this.state.searchName}`
       );
       let playerData = await playerStat.json();
+      console.log("Player data:",playerData)
       this.setState({ searchPlayerStatsName: playerData.data }, () => {
-        console.log(
-          "After name setting we have:",
-          this.state.searchPlayerStatsName
-        );
+        if(playerData.data.length===0){
+          console.log("Some Error")
+          this.setState({
+            isError:"1"
+          })
+        }
       });
     }
   }
@@ -46,6 +49,7 @@ export class Search extends Component {
         {
           searchId: e.target.value,
           isError: "",
+          searchPlayerStatsName:""
         },
         () => {
           // console.log("aFTER:",this.state.searchId)
@@ -56,6 +60,7 @@ export class Search extends Component {
         {
           searchName: e.target.value,
           isError: "",
+          searchPlayerStats:""
         },
         () => {
           // console.log("After:",this.state.searchName)
@@ -189,6 +194,27 @@ export class Search extends Component {
               <hr />
               <small className="badge badge-info">
                 Need Help With Player id?{" "}
+              </small>
+              &nbsp;
+              <a
+                href="https://www.cricapi.com/players/"
+                style={{ fontSize: "15px" }}
+                target="_blank"
+              >
+                See List
+              </a>
+            </div>
+          </>
+        )}
+        {this.state.searchPlayerStatsName && this.state.isError === "1" && (
+          <>
+            <div className="alert alert-danger">
+              <h4 class="alert-heading" style={{ margin: "5px 40px" }}>
+                Invalid Player Name
+              </h4>
+              <hr />
+              <small className="badge badge-info">
+                Need Help With Player Name?{" "}
               </small>
               &nbsp;
               <a

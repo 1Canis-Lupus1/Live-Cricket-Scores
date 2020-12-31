@@ -27,38 +27,14 @@ export class CurrentMatches extends Component {
       return (
         <div class="container">
           <div class="row">
-            <div class="col">1 of 2</div>
-            <div class="col">2 of 2</div>
+            <div class="col-2" style={{ border: "1px solid black",padding:"5px" }}>
+              {index + 1}
+            </div>
+            <div class="col-10" style={{ border: "1px solid black",padding:"5px" }}>
+              <b>{entry.title}</b>
+            </div>
           </div>
         </div>
-        // <table>
-        //   <tbody>
-        //     <tr>
-        //       <th
-        //         style={{
-        //           padding: "10px 65px",
-        //           margin: "10px 40px",
-        //           border: "1px solid black",
-        //         }}
-        //         scope="row"
-        //         key={entry.unique_id}
-        //       >
-        //         {index + 1}
-        //       </th>
-        //       <th
-        //         style={{
-        //           padding: "20px 50px",
-        //           margin: "10px 10px",
-        //           border: "2px dotted black",
-        //           width: "100%",
-        //         }}
-        //         key={entry.unique_id + 1}
-        //       >
-        //         {entry.title}
-        //       </th>
-        //     </tr>
-        //   </tbody>
-        // </table>
       );
     });
   };
@@ -94,34 +70,16 @@ export class CurrentMatches extends Component {
               </div>
             </>
           ) : (
-            <div style={{ border: "2px solid black" }}>
-              <thead>
-                <tr style={{ boder: "1px solid black" }}>
-                  <th
-                    className="table-primary"
-                    style={{
-                      padding: "10px 50px",
-                      margin: "10px 10px",
-                    }}
-                    scope="col"
-                  >
-                    Index
-                  </th>
-                  <th
-                    className="table-warning"
-                    style={{
-                      padding: "10px 50px",
-                      margin: "10px 10px",
-                      width: "100%",
-                    }}
-                    scope="col"
-                  >
-                    Match Details with Live Scores
-                  </th>
-                </tr>
-              </thead>
+            <div className="row">
+              <div className="col-2 alert alert-success" style={{ fontSize:"20px",border: "2px dotted black" }}>
+                Index
+              </div>
+              <div className="col-10 alert alert-info" style={{ fontSize:"20px",border: "2px dotted black" }}>
+                Match Details With Live Scores ( * If Applicable)
+              </div>
+
               {this.handleCurrentMatches()}
-              <div className="card-footer text-muted">
+              <div className="card-footer text-muted" style={{fontSize:"10px"}}>
                 Last Updated: {Math.floor(Math.random() * 5) + 1} mins ago
               </div>
             </div>

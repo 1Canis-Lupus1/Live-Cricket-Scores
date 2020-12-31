@@ -6,49 +6,59 @@ export class CurrentMatches extends Component {
     this.state = {
       apiKey: "iCLjbEzuHZRLvYhLbxlhW5t76XC2",
       currentMatches: [],
+      isLoading: false,
     };
   }
 
   async componentDidMount() {
     // console.log("Initial Render Check...");
+    this.setState({
+      isLoading: true,
+    });
     let response = await fetch(
       `https://cricapi.com/api/cricket?apikey=${this.state.apiKey}`
     );
     let data = await response.json();
-    this.setState({ currentMatches: data.data });
+    this.setState({ currentMatches: data.data, isLoading: false });
   }
 
   handleCurrentMatches = () => {
     return this.state.currentMatches.map((entry, index) => {
       return (
-        <table>
-          <tbody>
-            <tr>
-              <th
-                style={{
-                  padding: "10px 65px",
-                  margin: "10px 40px",
-                  border: "1px solid black",
-                }}
-                scope="row"
-                key={entry.unique_id}
-              >
-                {index + 1}
-              </th>
-              <th
-                style={{
-                  padding: "20px 50px",
-                  margin: "10px 10px",
-                  border: "2px dotted black",
-                  width: "100%",
-                }}
-                key={entry.unique_id + 1}
-              >
-                {entry.title}
-              </th>
-            </tr>
-          </tbody>
-        </table>
+        <div class="container">
+          <div class="row">
+            <div class="col">1 of 2</div>
+            <div class="col">2 of 2</div>
+          </div>
+        </div>
+        // <table>
+        //   <tbody>
+        //     <tr>
+        //       <th
+        //         style={{
+        //           padding: "10px 65px",
+        //           margin: "10px 40px",
+        //           border: "1px solid black",
+        //         }}
+        //         scope="row"
+        //         key={entry.unique_id}
+        //       >
+        //         {index + 1}
+        //       </th>
+        //       <th
+        //         style={{
+        //           padding: "20px 50px",
+        //           margin: "10px 10px",
+        //           border: "2px dotted black",
+        //           width: "100%",
+        //         }}
+        //         key={entry.unique_id + 1}
+        //       >
+        //         {entry.title}
+        //       </th>
+        //     </tr>
+        //   </tbody>
+        // </table>
       );
     });
   };

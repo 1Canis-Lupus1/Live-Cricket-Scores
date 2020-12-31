@@ -13,9 +13,9 @@ function App() {
       <br />
       {/* <Search /> */}
       <hr />
-      {/* <CurrentMatches /> */}
+      <CurrentMatches />
       <hr />
-      <UpcomingMatches />
+      {/* <UpcomingMatches /> */}
       <hr />
     </div>
   );

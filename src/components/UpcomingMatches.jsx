@@ -48,7 +48,7 @@ export class UpcomingMatches extends Component {
                   <div class="list-group" style={{ margin: "20px" }}>
                     <a
                       href="#"
-                      // target="_blank"
+                    //   target="_blank"
                       class="list-group-item list-group-item-action flex-column align-items-start "
                     >
                       <div class="d-flex w-100 justify-content-between alert alert-info">
